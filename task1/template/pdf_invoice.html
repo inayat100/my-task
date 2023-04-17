@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>Invoice</title>
+
+    <style>
+        table{
+            width: 75%;
+        }
+        tr {
+            font-size: 20px;
+            vertical-align: middle;
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        .tleft {
+            text-align: left;
+        }
+        .tright{
+            text-align: right;
+        }
+        .tcenter{
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <table>
+            <tr>
+                <td colspan="4">Invoice Number : Invoice {{object.id}}</td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    Invoice Date : {{object.creation_date}}
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">Seller</th>
+                <th colspan="2">Buyer</th>
+            </tr>
+            <tr>
+                <td class="tleft" colspan="2">Name : {{object.seller_id.name}} <br/>
+                    Phone : {{object.seller_id.phone}}<br/>
+                    Address : {{object.seller_id.address}}
+
+                </td>
+
+                <td class="tleft" colspan="2">Name : {{object.buyer_id.name}}<br/>
+                Phone : {{object.buyer_id.phone}}<br/>
+                Address : {{object.buyer_id.address}}
+
+                </td>
+            </tr>
+           
+
+           
+            {% if object.items_ids.all %}
+            <tr>
+                <th>Sno</th>
+                <th>Products</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+            {% for i in object.items_ids.all %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.name}}</td>
+                <td>{{i.quantity}}</td>
+                <td class="tright">{{i.price}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td class="tcenter" colspan="3">Grand Total</td>
+                <td class="tright">{{total}}</td>
+            </tr>
+            {% endif %}
+
+        </table>
+    </div>
+
+
+</body>
+
+</html>

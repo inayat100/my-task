@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}
+Create Invoice
+{% endblock %}
+{% block body %}
+
+<div class="container">
+    <h4>Create Items</h4>
+
+    <form action="{% url 'add_item' %}" method="post">
+        {% csrf_token %}
+        <div class="row mt-2">
+            <div class="col-md-4">
+                <label for="item" class="form-label">Item Name</label>
+                <input type="text" class="form-control" name="name" id="item" placeholder="input name">
+            </div>
+            <div class="col-md-4">
+                <label for="quantity" class="form-label">Quantity</label>
+                <input type="text" class="form-control" name="quantity" id="quantity" placeholder="input quantity">
+            </div>
+            <div class="col-md-4">
+                <label for="price" class="form-label">Price</label>
+                <input type="text" class="form-control" name="price" id="price" placeholder="input price">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Add Items</button>
+    </form>
+    <hr>
+    <form action="" method="post">
+        {% if data%}
+        <H4 class="m-2">Items List</H4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">SNO</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{i.name}}</td>
+                    <td>{{i.quantity}}</td>
+                    <td>{{i.price}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% csrf_token %}
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <H4>Seller Info</H4>
+                <div class="mb-3">
+                    <label for="sellarname" class="form-label">Name</label>
+                    <input type="text" name="sellarname" class="form-control" id="sellarname" placeholder="input name">
+                </div>
+                <div class="mb-3">
+                    <label for="sellarphone" class="form-label">Phone</label>
+                    <input type="text" name="sellarphone" class="form-control" id="sellarphone"
+                        placeholder="input Phone Number">
+                </div>
+                <div class="mb-3">
+                    <label for="sellaraddress" class="form-label">Address</label>
+                    <textarea class="form-control" name="sellaraddress" id="sellaraddress" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <H4>Buyer Info</H4>
+                <div class="mb-3">
+                    <label for="buyername" class="form-label">Name</label>
+                    <input type="text" name="buyername" class="form-control" id="buyername" placeholder="input name">
+                </div>
+                <div class="mb-3">
+                    <label for="buyerphone" class="form-label">Phone</label>
+                    <input type="text" name="buyerphone" class="form-control" id="buyerphone"
+                        placeholder="input Phone Number">
+                </div>
+                <div class="mb-3">
+                    <label for="buyeraddress" class="form-label">Address</label>
+                    <textarea class="form-control" name="buyeraddress" id="buyeraddress" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <input type="submit" class="btn btn-success my-3" value="Invoice Generate" />
+    </form>
+</div>
+{% endblock %}
